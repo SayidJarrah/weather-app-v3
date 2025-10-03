@@ -10,8 +10,20 @@
     <main>
       <header>
         <h1>Today's Weather</h1>
-        <p>Live temperatures for Kyiv, Singapore, London, and Sydney.</p>
+        <p>Live temperatures for your favourite cities.</p>
       </header>
+      <section id="city-management" aria-label="Add a city to the dashboard">
+        <h2>Manage cities</h2>
+        <form id="city-form">
+          <div class="form-row">
+            <label for="city-select">City</label>
+            <select id="city-select" name="city-select" required>
+              <option value="">Select a city…</option>
+            </select>
+          </div>
+          <button type="submit">Add city</button>
+        </form>
+      </section>
       <section id="weather-section" aria-live="polite" aria-busy="true">
         <p id="status-message">Loading weather data...</p>
         <ul id="city-weather-list" aria-label="City temperatures"></ul>

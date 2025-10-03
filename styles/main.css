@@ -44,6 +44,85 @@ h1 {
   letter-spacing: 0.02em;
 }
 
+#city-management {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1.25rem;
+  background: var(--card-background);
+  border: 1px solid var(--card-border);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+}
+
+#city-management h2 {
+  margin: 0;
+  font-size: 1.125rem;
+  letter-spacing: 0.02em;
+}
+
+#city-management form {
+  display: grid;
+  gap: 1rem;
+}
+
+.form-row {
+  display: grid;
+  gap: 0.5rem;
+}
+
+#city-management label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+#city-management input,
+#city-management select {
+  padding: 0.65rem 0.85rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--card-border);
+  background: rgba(15, 23, 42, 0.45);
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+#city-management input:focus-visible,
+#city-management select:focus-visible {
+  outline: 2px solid rgba(96, 165, 250, 0.65);
+  outline-offset: 2px;
+}
+
+#city-management select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, rgba(248, 250, 252, 0.65) 50%),
+    linear-gradient(135deg, rgba(248, 250, 252, 0.65) 50%, transparent 50%);
+  background-position: calc(100% - 1.6rem) calc(50% - 0.25rem), calc(100% - 1.1rem) calc(50% - 0.25rem);
+  background-size: 0.5rem 0.5rem, 0.5rem 0.5rem;
+  background-repeat: no-repeat;
+}
+
+#city-management button {
+  justify-self: start;
+  padding: 0.65rem 1.25rem;
+  border: none;
+  border-radius: 0.75rem;
+  background: rgba(59, 130, 246, 0.9);
+  color: var(--text-primary);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform var(--transition-duration) ease, box-shadow var(--transition-duration) ease;
+}
+
+#city-management button:hover,
+#city-management button:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.35);
+}
+
 p {
   margin: 0.5rem 0 0;
   color: var(--text-secondary);
@@ -65,7 +144,7 @@ p {
 
 .city-card {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr auto auto;
   align-items: center;
   gap: 0.75rem;
   padding: var(--card-padding);
@@ -97,6 +176,23 @@ p {
   font-weight: 600;
 }
 
+.city-remove-button {
+  padding: 0.4rem 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background var(--transition-duration) ease, color var(--transition-duration) ease;
+}
+
+.city-remove-button:hover,
+.city-remove-button:focus-visible {
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--text-primary);
+}
+
 @media (max-width: 480px) {
   main {
     padding: 2rem 1rem;
@@ -106,7 +202,8 @@ p {
     grid-template-columns: auto auto;
     grid-template-areas:
       "flag name"
-      "flag temperature";
+      "flag temperature"
+      "flag remove";
   }
 
   .city-card span:first-child {
@@ -119,6 +216,11 @@ p {
 
   .city-temperature {
     grid-area: temperature;
+    justify-self: end;
+  }
+
+  .city-remove-button {
+    grid-area: remove;
     justify-self: end;
   }
 }
