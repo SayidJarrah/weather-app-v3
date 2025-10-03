@@ -34,7 +34,8 @@ describe("mapWeatherResponse", () => {
     assert.deepEqual(result, {
       name: SAMPLE_CITY.name,
       flagEmoji: SAMPLE_CITY.flagEmoji,
-      temperature: `${temperature.toFixed(TEMPERATURE_DECIMAL_PLACES)}${TEMPERATURE_UNIT}`
+      temperatureCelsius: temperature,
+      formattedTemperature: `${temperature.toFixed(TEMPERATURE_DECIMAL_PLACES)}${TEMPERATURE_UNIT}`
     });
   });
 

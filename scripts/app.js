@@ -4,6 +4,7 @@ import {
   LOADING_MESSAGE
 } from "./constants.js";
 import { fetchWeatherForCities } from "./weatherService.js";
+import { getCityCardTemperatureClass } from "./temperatureStyles.js";
 
 const DASHBOARD_LIST_ID = "city-weather-list";
 const STATUS_MESSAGE_ID = "status-message";
@@ -24,7 +25,7 @@ const setBusyState = (isBusy) => {
 
 const createCityCard = (cityWeather) => {
   const listItem = document.createElement("li");
-  listItem.className = CITY_CARD_CLASS;
+  listItem.className = `${CITY_CARD_CLASS} ${getCityCardTemperatureClass(cityWeather.temperatureCelsius)}`;
 
   const flag = document.createElement("span");
   flag.setAttribute("role", "img");
@@ -37,7 +38,7 @@ const createCityCard = (cityWeather) => {
 
   const temperature = document.createElement("span");
   temperature.className = TEMPERATURE_CLASS;
-  temperature.textContent = cityWeather.temperature;
+  temperature.textContent = cityWeather.formattedTemperature;
 
   listItem.append(flag, name, temperature);
   return listItem;

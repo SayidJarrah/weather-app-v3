@@ -30,14 +30,16 @@ export const mapWeatherResponse = (city, apiResponse) => {
   }
 
   const currentWeather = apiResponse[CURRENT_WEATHER_KEY];
-  if (typeof currentWeather[TEMPERATURE_KEY] !== "number") {
+  const rawTemperature = currentWeather[TEMPERATURE_KEY];
+  if (!Number.isFinite(rawTemperature)) {
     throw new Error(`Missing temperature value for ${city.name}`);
   }
 
   return {
     name: city.name,
     flagEmoji: city.flagEmoji,
-    temperature: `${currentWeather[TEMPERATURE_KEY].toFixed(TEMPERATURE_DECIMAL_PLACES)}${TEMPERATURE_UNIT}`
+    temperatureCelsius: rawTemperature,
+    formattedTemperature: `${rawTemperature.toFixed(TEMPERATURE_DECIMAL_PLACES)}${TEMPERATURE_UNIT}`
   };
 };
 
