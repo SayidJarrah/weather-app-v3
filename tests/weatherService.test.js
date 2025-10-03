@@ -24,17 +24,23 @@ describe("buildWeatherApiUrl", () => {
 describe("mapWeatherResponse", () => {
   it("formats the response for rendering", () => {
     const temperature = 21.3456;
+    const observationTime = "2024-04-01T10:00";
+    const timezone = "Europe/Kyiv";
     const apiResponse = {
       current_weather: {
-        temperature
-      }
+        temperature,
+        time: observationTime
+      },
+      timezone
     };
 
     const result = mapWeatherResponse(SAMPLE_CITY, apiResponse);
     assert.deepEqual(result, {
       name: SAMPLE_CITY.name,
       flagEmoji: SAMPLE_CITY.flagEmoji,
-      temperature: `${temperature.toFixed(TEMPERATURE_DECIMAL_PLACES)}${TEMPERATURE_UNIT}`
+      temperature: `${temperature.toFixed(TEMPERATURE_DECIMAL_PLACES)}${TEMPERATURE_UNIT}`,
+      observedAt: observationTime,
+      timeZone: timezone
     });
   });
 
@@ -48,14 +54,38 @@ describe("mapWeatherResponse", () => {
     };
     assert.throws(() => mapWeatherResponse(SAMPLE_CITY, response), /Missing temperature value/);
   });
+
+  it("throws when the observation time is missing", () => {
+    const response = {
+      current_weather: {
+        temperature: 20
+      },
+      timezone: "Etc/UTC"
+    };
+
+    assert.throws(() => mapWeatherResponse(SAMPLE_CITY, response), /Missing observation time/);
+  });
+
+  it("throws when the timezone is missing", () => {
+    const response = {
+      current_weather: {
+        temperature: 20,
+        time: "2024-04-01T10:00"
+      }
+    };
+
+    assert.throws(() => mapWeatherResponse(SAMPLE_CITY, response), /Missing timezone information/);
+  });
 });
 
 describe("fetchWeatherForCities", () => {
   it("fetches weather for each provided city", async () => {
     const apiResponse = {
       current_weather: {
-        temperature: 19.87
-      }
+        temperature: 19.87,
+        time: "2024-04-01T10:00"
+      },
+      timezone: "Europe/Kyiv"
     };
 
     const fetchMock = mock.fn(async () => ({

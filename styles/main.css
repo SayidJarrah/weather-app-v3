@@ -11,6 +11,13 @@
   --card-radius: 16px;
   --card-shadow: 0 20px 40px rgba(15, 23, 42, 0.25);
   --transition-duration: 200ms;
+  --button-background: rgba(59, 130, 246, 0.85);
+  --button-background-hover: rgba(59, 130, 246, 1);
+  --button-text: #f8fafc;
+  --button-border: rgba(148, 163, 184, 0.4);
+  --button-disabled-background: rgba(148, 163, 184, 0.3);
+  --button-disabled-text: rgba(241, 245, 249, 0.65);
+  --controls-gap: 0.5rem;
 }
 
 * {
@@ -55,6 +62,48 @@ p {
   min-height: 1.5rem;
 }
 
+#last-updated {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.weather-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--controls-gap);
+  margin-bottom: 1.25rem;
+  margin-left: auto;
+  width: max-content;
+  text-align: right;
+}
+
+.weather-controls button {
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  border: 1px solid var(--button-border);
+  background: var(--button-background);
+  color: var(--button-text);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: background var(--transition-duration) ease, transform var(--transition-duration) ease;
+}
+
+.weather-controls button:hover,
+.weather-controls button:focus-visible {
+  background: var(--button-background-hover);
+  transform: translateY(-1px);
+}
+
+.weather-controls button:disabled {
+  background: var(--button-disabled-background);
+  color: var(--button-disabled-text);
+  cursor: not-allowed;
+  transform: none;
+}
+
 #city-weather-list {
   list-style: none;
   margin: 0;
@@ -66,6 +115,7 @@ p {
 .city-card {
   display: grid;
   grid-template-columns: auto 1fr auto;
+  grid-auto-rows: auto;
   align-items: center;
   gap: 0.75rem;
   padding: var(--card-padding);
@@ -97,16 +147,33 @@ p {
   font-weight: 600;
 }
 
+.city-local-time {
+  grid-column: 1 / -1;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
 @media (max-width: 480px) {
   main {
     padding: 2rem 1rem;
+  }
+
+  .weather-controls {
+    width: 100%;
+    align-items: stretch;
+    text-align: left;
+  }
+
+  .weather-controls button {
+    width: 100%;
   }
 
   .city-card {
     grid-template-columns: auto auto;
     grid-template-areas:
       "flag name"
-      "flag temperature";
+      "flag temperature"
+      "time time";
   }
 
   .city-card span:first-child {
@@ -120,5 +187,9 @@ p {
   .city-temperature {
     grid-area: temperature;
     justify-self: end;
+  }
+
+  .city-local-time {
+    grid-area: time;
   }
 }
