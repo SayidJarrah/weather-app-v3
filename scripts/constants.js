@@ -29,5 +29,6 @@ export const WEATHER_API_BASE_URL = "https://api.open-meteo.com/v1/forecast";
 export const CURRENT_WEATHER_QUERY = "current_weather=true";
 export const TEMPERATURE_UNIT = "°C";
 export const LOADING_MESSAGE = "Loading weather data...";
+export const REFRESHING_MESSAGE = "Refreshing weather data...";
 export const GENERIC_ERROR_MESSAGE = "Unable to load weather information right now. Please try again later.";
 export const TEMPERATURE_DECIMAL_PLACES = 1;

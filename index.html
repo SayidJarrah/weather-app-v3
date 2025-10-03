@@ -13,6 +13,10 @@
         <p>Live temperatures for Kyiv, Singapore, London, and Sydney.</p>
       </header>
       <section id="weather-section" aria-live="polite" aria-busy="true">
+        <div class="weather-controls">
+          <button id="refresh-weather-button" type="button">Refresh all locations</button>
+          <p id="last-updated" aria-live="polite"></p>
+        </div>
         <p id="status-message">Loading weather data...</p>
         <ul id="city-weather-list" aria-label="City temperatures"></ul>
       </section>

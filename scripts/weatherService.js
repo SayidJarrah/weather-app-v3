@@ -9,6 +9,8 @@ const LATITUDE_QUERY_PARAM = "latitude";
 const LONGITUDE_QUERY_PARAM = "longitude";
 const CURRENT_WEATHER_KEY = "current_weather";
 const TEMPERATURE_KEY = "temperature";
+const TIME_KEY = "time";
+const TIMEZONE_KEY = "timezone";
 const DEFAULT_TIMEZONE_QUERY = "timezone=auto";
 
 const REQUIRED_QUERY_PARAMS = [CURRENT_WEATHER_QUERY, DEFAULT_TIMEZONE_QUERY];
@@ -34,10 +36,20 @@ export const mapWeatherResponse = (city, apiResponse) => {
     throw new Error(`Missing temperature value for ${city.name}`);
   }
 
+  if (typeof currentWeather[TIME_KEY] !== "string") {
+    throw new Error(`Missing observation time for ${city.name}`);
+  }
+
+  if (typeof apiResponse[TIMEZONE_KEY] !== "string") {
+    throw new Error(`Missing timezone information for ${city.name}`);
+  }
+
   return {
     name: city.name,
     flagEmoji: city.flagEmoji,
-    temperature: `${currentWeather[TEMPERATURE_KEY].toFixed(TEMPERATURE_DECIMAL_PLACES)}${TEMPERATURE_UNIT}`
+    temperature: `${currentWeather[TEMPERATURE_KEY].toFixed(TEMPERATURE_DECIMAL_PLACES)}${TEMPERATURE_UNIT}`,
+    observedAt: currentWeather[TIME_KEY],
+    timeZone: apiResponse[TIMEZONE_KEY]
   };
 };
 
