@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Simple Weather Dashboard</title>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Today's Weather</h1>
+        <p>Live temperatures for Kyiv, Singapore, London, and Sydney.</p>
+      </header>
+      <section id="weather-section" aria-live="polite" aria-busy="true">
+        <p id="status-message">Loading weather data...</p>
+        <ul id="city-weather-list" aria-label="City temperatures"></ul>
+      </section>
+    </main>
+    <script type="module" src="scripts/app.js"></script>
+  </body>
+</html>

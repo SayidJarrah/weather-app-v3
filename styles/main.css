@@ -1,0 +1,124 @@
+:root {
+  --page-background: linear-gradient(135deg, #172554, #1d4ed8);
+  --card-background: rgba(255, 255, 255, 0.15);
+  --card-border: rgba(255, 255, 255, 0.4);
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5f5;
+  --font-family: "Inter", "Segoe UI", sans-serif;
+  --max-content-width: 480px;
+  --card-gap: 1rem;
+  --card-padding: 1rem;
+  --card-radius: 16px;
+  --card-shadow: 0 20px 40px rgba(15, 23, 42, 0.25);
+  --transition-duration: 200ms;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--page-background);
+  font-family: var(--font-family);
+  color: var(--text-primary);
+}
+
+main {
+  width: min(100%, var(--max-content-width));
+  padding: 2.5rem 1.5rem;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  letter-spacing: 0.02em;
+}
+
+p {
+  margin: 0.5rem 0 0;
+  color: var(--text-secondary);
+}
+
+#status-message {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  min-height: 1.5rem;
+}
+
+#city-weather-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--card-gap);
+}
+
+.city-card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: var(--card-padding);
+  background: var(--card-background);
+  border: 1px solid var(--card-border);
+  border-radius: var(--card-radius);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--card-shadow);
+  transition: transform var(--transition-duration) ease, box-shadow var(--transition-duration) ease;
+}
+
+.city-card:hover,
+.city-card:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.4);
+}
+
+.city-card span:first-child {
+  font-size: 2rem;
+}
+
+.city-name {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.city-temperature {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+@media (max-width: 480px) {
+  main {
+    padding: 2rem 1rem;
+  }
+
+  .city-card {
+    grid-template-columns: auto auto;
+    grid-template-areas:
+      "flag name"
+      "flag temperature";
+  }
+
+  .city-card span:first-child {
+    grid-area: flag;
+  }
+
+  .city-name {
+    grid-area: name;
+  }
+
+  .city-temperature {
+    grid-area: temperature;
+    justify-self: end;
+  }
+}
